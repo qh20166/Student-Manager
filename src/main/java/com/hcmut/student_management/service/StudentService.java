@@ -15,7 +15,7 @@ public class StudentService {
 
     // READ ALL
     public List<Student> getAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdAsc();
     }
 
     // READ BY ID
@@ -48,7 +48,7 @@ public class StudentService {
 
     // SEARCH
     public List<Student> searchByName(String keyword) {
-        return repository.findByNameContainingIgnoreCase(keyword);
+        return repository.findByNameContainingIgnoreCaseOrderByIdAsc(keyword);
     }
 
 }

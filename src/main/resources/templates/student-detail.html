@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hồ sơ Sinh viên | EduManager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
+        .profile-card { border: none; border-radius: 16px; overflow: hidden; }
+        .profile-header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            padding: 40px 20px;
+        }
+        .avatar-placeholder {
+            width: 100px; height: 100px;
+            background: #3b82f6;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.2);
+            margin: 0 auto -70px;
+        }
+        .info-label { color: #64748b; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-value { color: #1e293b; font-weight: 500; font-size: 1.1rem; }
+        .btn-action { border-radius: 10px; padding: 10px 20px; font-weight: 600; transition: all 0.2s; }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/students" class="text-decoration-none">Danh sách</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Chi tiết sinh viên</li>
+                </ol>
+            </nav>
+
+            <div class="card profile-card shadow-lg">
+                <div class="profile-header text-center">
+                    <div class="avatar-placeholder shadow" th:text="${#strings.substring(student.name,0,1)}">S</div>
+                </div>
+
+                <div class="card-body pt-5 mt-4 px-4 px-md-5">
+                    <div class="text-center mb-4">
+                        <h3 class="fw-bold mb-1" th:text="${student.name}">Nguyễn Văn A</h3>
+                        <p class="text-muted" th:text="${'Mã sinh viên: ' + student.id}">ID: 12345</p>
+                    </div>
+
+                    <hr class="opacity-10">
+
+                    <div class="row g-4 py-3">
+                        <div class="col-sm-6">
+                            <label class="info-label d-block mb-1"><i class="bi bi-envelope me-2"></i>Email</label>
+                            <span class="info-value text-break" th:text="${student.email}">student@university.com</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="info-label d-block mb-1"><i class="bi bi-calendar-event me-2"></i>Độ tuổi</label>
+                            <span class="info-value" th:text="${student.age + ' tuổi'}">20 tuổi</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="info-label d-block mb-1"><i class="bi bi-shield-check me-2"></i>Trạng thái</label>
+                            <span class="badge bg-success-subtle text-success px-3">Đang theo học</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="info-label d-block mb-1"><i class="bi bi-geo-alt me-2"></i>Cơ sở</label>
+                            <span class="info-value">Hà Nội (Main Campus)</span>
+                        </div>
+                    </div>
+
+                    <hr class="opacity-10 mb-4">
+
+                    <div class="d-flex flex-wrap gap-2 justify-content-center pb-3">
+                        <a th:href="@{/students/edit/{id}(id=${student.id})}"
+                           class="btn btn-warning btn-action shadow-sm">
+                            <i class="bi bi-pencil-square me-2"></i>Chỉnh sửa
+                        </a>
+
+                        <a th:href="@{/students/delete/{id}(id=${student.id})}"
+                           class="btn btn-outline-danger btn-action"
+                           onclick="return confirm('Bạn có chắc chắn muốn xóa hồ sơ này?')">
+                            <i class="bi bi-trash me-2"></i>Xóa hồ sơ
+                        </a>
+
+                        <a href="/students" class="btn btn-light btn-action border">
+                            <i class="bi bi-arrow-left me-2"></i>Quay lại
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center mt-4 text-muted small">Hệ thống Quản lý EduManager &copy; 2026</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
