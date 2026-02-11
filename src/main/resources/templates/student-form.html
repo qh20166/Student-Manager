@@ -2,15 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Cập nhật hồ sơ sinh viên</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cập nhật hồ sơ sinh viên | StudentManager</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="../static/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
 
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+    /* Sticky Footer Kỹ thuật Flexbox */
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8fafc;
+        color: #1e293b;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main-wrapper {
+        flex: 1 0 auto;
+    }
+
+    footer {
+        flex-shrink: 0;
+        background-color: #ffffff;
+        border-top: 1px solid #e2e8f0;
+        padding: 1.5rem 0;
+    }
+
+    /* Form Styles */
     .card { border: none; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
     .card-header { background: #ffffff !important; border-bottom: 1px solid #e2e8f0; padding: 1.5rem; }
     .form-label { font-weight: 600; font-size: 0.875rem; color: #475569; }
@@ -20,92 +46,102 @@
     .btn-save { background-color: #2563eb; border: none; color: white; }
     .btn-save:hover { background-color: #1d4ed8; transform: translateY(-1px); }
     .input-group-text { background-color: #f1f5f9; border: 1px solid #cbd5e1; color: #64748b; }
+
+    .breadcrumb-item a { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 
 <body>
 
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-6">
+<div class="main-wrapper">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
 
-      <div class="mb-4">
-        <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb" class="mb-4">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/students" class="text-decoration-none">Hệ thống</a></li>
-            <li class="breadcrumb-item active">Biểu mẫu sinh viên</li>
+            <li class="breadcrumb-item"><a href="/students" class="text-decoration-none">Danh sách</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Biểu mẫu sinh viên</li>
           </ol>
         </nav>
-      </div>
 
-      <div class="card">
-        <div class="card-header">
-          <h4 class="mb-0 fw-bold text-dark">
-            <i class="bi bi-person-lines-fill me-2 text-primary"></i>Thông tin sinh viên
-          </h4>
-          <small class="text-muted">Vui lòng điền chính xác thông tin để cập nhật hệ thống.</small>
+        <div class="card">
+          <div class="card-header">
+            <h4 class="mb-0 fw-bold text-dark">
+              <i class="bi bi-person-lines-fill me-2 text-primary"></i>Thông tin sinh viên
+            </h4>
+            <p class="text-muted small mb-0 mt-1">Vui lòng điền chính xác thông tin để cập nhật hệ thống.</p>
+          </div>
+
+          <div class="card-body p-4">
+            <form th:action="@{/students}" th:object="${student}" method="post">
+
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label class="form-label">Mã số sinh viên (ID)</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-hash"></i></span>
+                    <input type="text" th:field="*{id}" class="form-control"
+                           placeholder="Nhập mã sinh viên..." required>
+                  </div>
+                  <div th:if="${student.id != null}" class="mt-2">
+                    <small class="text-info">
+                      <i class="bi bi-info-circle me-1"></i> ID là định danh cố định trong hệ thống.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                  <label class="form-label">Họ và tên</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <input type="text" th:field="*{name}" class="form-control"
+                           placeholder="VD: Nguyễn Văn A" required>
+                  </div>
+                </div>
+
+                <div class="col-md-8 mb-3">
+                  <label class="form-label">Địa chỉ Email</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                    <input type="email" th:field="*{email}" class="form-control"
+                           placeholder="name@university.edu" required>
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Tuổi</label>
+                  <input type="number" th:field="*{age}" class="form-control"
+                         placeholder="18" required min="16">
+                </div>
+              </div>
+
+              <hr class="my-4 opacity-10">
+
+              <div class="d-flex justify-content-end gap-2">
+                <a href="/students" class="btn btn-light border text-secondary px-4">
+                  Hủy bỏ
+                </a>
+                <button type="submit" class="btn btn-save shadow-sm px-5">
+                  <i class="bi bi-cloud-arrow-up me-2"></i>Lưu thông tin
+                </button>
+              </div>
+
+            </form>
+          </div>
         </div>
-
-        <div class="card-body p-4">
-          <form th:action="@{/students}" th:object="${student}" method="post">
-
-            <div class="row">
-              <div class="col-md-12 mb-3">
-                <label class="form-label">Mã số sinh viên (ID)</label>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="bi bi-hash"></i></span>
-                  <input type="text" th:field="*{id}" class="form-control"
-                         placeholder="Nhập mã sinh viên..." required>
-                </div>
-              </div>
-              <small th:if="${student.id != null}" class="text-info">
-                <i class="bi bi-info-circle me-1"></i> ID là định danh cố định và không thể thay đổi.
-              </small>
-
-              <div class="col-md-12 mb-3">
-                <label class="form-label">Họ và tên</label>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="bi bi-person"></i></span>
-                  <input type="text" th:field="*{name}" class="form-control"
-                         placeholder="VD: Nguyễn Văn A" required>
-                </div>
-              </div>
-
-              <div class="col-md-8 mb-3">
-                <label class="form-label">Địa chỉ Email</label>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                  <input type="email" th:field="*{email}" class="form-control"
-                         placeholder="name@university.edu" required>
-                </div>
-              </div>
-
-              <div class="col-md-4 mb-3">
-                <label class="form-label">Tuổi</label>
-                <input type="number" th:field="*{age}" class="form-control"
-                       placeholder="18" required min="16">
-              </div>
-            </div>
-
-            <hr class="my-4 border-light">
-
-            <div class="d-flex justify-content-end gap-2">
-              <a href="/students" class="btn btn-light border text-secondary px-4">
-                Hủy bỏ
-              </a>
-              <button type="submit" class="btn btn-save shadow-sm px-5">
-                <i class="bi bi-cloud-arrow-up me-2"></i>Lưu thông tin
-              </button>
-            </div>
-
-          </form>
-        </div>
       </div>
-
-      <p class="text-center mt-4 text-muted small">Quản lý bởi StudentSystem &copy; 2026</p>
     </div>
   </div>
 </div>
 
+<footer>
+  <div class="container text-center">
+    <p class="mb-1 text-dark fw-semibold">Hệ thống quản lý StudentManager</p>
+    <p class="mb-0 text-muted small">&copy; 2026 Toàn bộ quyền được bảo lưu.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
