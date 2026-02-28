@@ -53,8 +53,8 @@ public class StudentWebController {
         try {
             service.save(student);
             return "redirect:/students";
-        } catch (RuntimeException ex) { // ✅ This matches what the Service is throwing
-            model.addAttribute("errorMessage", ex.getMessage()); // Uses "Student ID already exists"
+        } catch (RuntimeException ex) {
+            model.addAttribute("errorMessage", ex.getMessage());
             model.addAttribute("student", new Student());
             return "student-form";
         }
