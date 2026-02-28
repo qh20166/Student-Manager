@@ -8,7 +8,7 @@
 		<version>4.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.hcmut</groupId>
+	<groupId>vn.edu.hcmut.cse.adse</groupId>
 	<artifactId>student-management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>student-management</name>

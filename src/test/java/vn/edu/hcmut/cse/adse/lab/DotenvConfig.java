@@ -1,4 +1,4 @@
-package com.hcmut.student_management;
+package vn.edu.hcmut.cse.adse.lab;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Configuration;

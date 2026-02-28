@@ -1,6 +1,6 @@
-package com.hcmut.student_management.repository;
+package vn.edu.hcmut.cse.adse.lab.repository;
 
-import com.hcmut.student_management.entity.Student;
+import vn.edu.hcmut.cse.adse.lab.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

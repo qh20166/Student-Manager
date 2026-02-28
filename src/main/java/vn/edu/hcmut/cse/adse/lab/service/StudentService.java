@@ -1,7 +1,7 @@
-package com.hcmut.student_management.service;
+package vn.edu.hcmut.cse.adse.lab.service;
 
-import com.hcmut.student_management.entity.Student;
-import com.hcmut.student_management.repository.StudentRepository;
+import vn.edu.hcmut.cse.adse.lab.entity.Student;
+import vn.edu.hcmut.cse.adse.lab.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +25,9 @@ public class StudentService {
 
     // CREATE
     public Student save(Student student) {
+        if (repository.existsById(student.getId())) {
+            throw new RuntimeException("Student ID already exists");
+        }
         return repository.save(student);
     }
 

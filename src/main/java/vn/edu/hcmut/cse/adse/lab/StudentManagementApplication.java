@@ -1,4 +1,4 @@
-package com.hcmut.student_management;
+package vn.edu.hcmut.cse.adse.lab;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

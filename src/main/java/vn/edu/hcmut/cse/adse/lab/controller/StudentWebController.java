@@ -1,7 +1,7 @@
-package com.hcmut.student_management.controller;
+package vn.edu.hcmut.cse.adse.lab.controller;
 
-import com.hcmut.student_management.entity.Student;
-import com.hcmut.student_management.service.StudentService;
+import vn.edu.hcmut.cse.adse.lab.entity.Student;
+import vn.edu.hcmut.cse.adse.lab.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

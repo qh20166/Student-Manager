@@ -1,4 +1,4 @@
-package com.hcmut.student_management;
+package vn.edu.hcmut.cse.adse.lab;
 //
 //import org.junit.jupiter.api.Test;
 //import org.springframework.boot.test.context.SpringBootTest;
