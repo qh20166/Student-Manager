@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.List;
 
@@ -48,9 +49,15 @@ public class StudentWebController {
 
     // 5. CREATE
     @PostMapping("/students")
-    public String saveStudent(Student student) {
-        service.save(student);
-        return "redirect:/students";
+    public String saveStudent(Student student, Model model) {
+        try {
+            service.save(student);
+            return "redirect:/students";
+        } catch (RuntimeException ex) { // ✅ This matches what the Service is throwing
+            model.addAttribute("errorMessage", ex.getMessage()); // Uses "Student ID already exists"
+            model.addAttribute("student", new Student());
+            return "student-form";
+        }
     }
 
     // 6. FORM EDIT
