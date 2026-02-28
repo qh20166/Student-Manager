@@ -75,7 +75,9 @@
           </div>
 
           <div class="card-body p-4">
-            <form th:action="@{/students}" th:object="${student}" method="post">
+            <form th:action="${student.id != null} ? @{/students/update/{id}(id=${student.id})} : @{/students}"
+                  th:object="${student}"
+                  method="post">
 
               <div class="row">
                 <div class="col-md-12 mb-3">
